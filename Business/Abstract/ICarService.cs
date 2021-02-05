@@ -9,6 +9,6 @@ namespace Business.Abstract
     {
         List<Car> GetAll();
         Car GetById(int id);
-        List<Car> GetByDailyPrice(decimal min, decimal max);
+        
     }
 }
