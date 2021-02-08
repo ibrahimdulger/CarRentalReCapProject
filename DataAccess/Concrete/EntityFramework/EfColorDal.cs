@@ -47,11 +47,16 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        
+
 
         public void Update(Color entity)
         {
-            throw new NotImplementedException();
+            using (CarRentalContext context = new CarRentalContext())
+            {
+                var updatedEntity = context.Entry(entity);
+                updatedEntity.State = EntityState.Modified;
+                context.SaveChanges();
+            }
         }
     }
 }
