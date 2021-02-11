@@ -26,6 +26,11 @@ namespace Business.Concrete
             _colordal.Delete(color);
         }
 
+        public List<Color> GetAll()
+        {
+            return _colordal.GetAll();
+        }
+
         public void Update(Color color)
         {
             _colordal.Update(color);
