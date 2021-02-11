@@ -9,9 +9,8 @@ namespace DataAccess.DTOs
     {
         public int Id { get; set; }
         public string BrandName { get; set; }
-        public string BrandModel { get; set; }
+        public string ModelName { get; set; }
         public string ColorName { get; set; }
         public decimal DailyPrice { get; set; }
-
     }
 }
