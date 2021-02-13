@@ -13,40 +13,93 @@ namespace ConsoleUI
             //InitializeDb();
 
             CarManager carManager = new CarManager(new EfCarDal());
+            //carManager.Update(new Car { Id = 3, BrandId = 2, ModelId = 1, ColorId = 1, DailyPrice = 150, Description = "Updated Car", ModelYear = 2020 });
+            //carManager.Add(new Car { BrandId = 1, ModelId = 1, ColorId = 1, DailyPrice = 100, Description = "Silinecek", ModelYear = 2019 });
+            //var carToDelete = carManager.GetById(1003);
+            //carManager.Delete(carToDelete);
 
             Console.WriteLine("--------Tümünü Listele-----------");
-            foreach (var car in carManager.GetAll())
-            {
-                Console.WriteLine(car.ModelYear + " " + " Model" + " " + car.Description + " " + "Fiyatı: " + car.DailyPrice + " TL");
-            }
+            ListAll(carManager);
             Console.WriteLine();
 
             Console.WriteLine("--------Marka ID ile çağırma-----------");
-            foreach (var car in carManager.GetCarsByBrandId(1))
-            {
-                Console.WriteLine(car.ModelYear + " " + " Model" + " " + car.Description + " " + "Fiyatı: " + car.DailyPrice + " TL");
-            }
+            ListByBrandId(carManager);
             Console.WriteLine();
 
 
             Console.WriteLine("--------Renk ID ile çağırma-----------");
-            foreach (var car in carManager.GetCarsByColorId(1))
-            {
-                Console.WriteLine(car.ModelYear + " " + " Model" + " " + car.Description + " " + "Fiyatı: " + car.DailyPrice + " TL");
-            }
+            ListByColorId(carManager);
             Console.WriteLine();
-
 
             Console.WriteLine("---------Araç Detayları--------------");
-            foreach (var car in carManager.GetCarDetails())
-            {
-                Console.WriteLine(car.BrandName + car.ModelName + car.ColorName + car.DailyPrice);
-            }
+            CarDetails(carManager);
             Console.WriteLine();
+        }
 
+        private static void ListAll(CarManager carManager)
+        {
+            var getAllResult = carManager.GetAll();
+            if (getAllResult.Success)
+            {
+                foreach (var car in getAllResult.Data)
+                {
+                    Console.WriteLine(car.ModelYear + " " + " Model" + " " + car.Description + " " + "Fiyatı: " + car.DailyPrice.ToString("N2") + " TL");
+                }
+            }
+            else
+            {
+                Console.WriteLine(getAllResult.Message);
+            }
+        }
 
-            //carManager.Update(new Car { Id = 3, BrandId = 200, ColorId = 44, DailyPrice = 150, Description = "Updated Car", ModelYear = 2020 });
-            //carManager.Add(new Car { Id = 7, BrandId = 100, ColorId = 22, DailyPrice = 150, Description = "1.5 Benzinli Motor", ModelYear = 2019 });
+        private static void ListByBrandId(CarManager carManager)
+        {
+            var getCarsByBrandIdResult = carManager.GetCarsByBrandId(1);
+            if (getCarsByBrandIdResult.Success)
+            {
+                foreach (var car in getCarsByBrandIdResult.Data)
+                {
+                    Console.WriteLine(car.ModelYear + " " + " Model" + " " + car.Description + " " + "Fiyatı: " + car.DailyPrice.ToString("N2") + " TL");
+                }
+            }
+            else
+            {
+                Console.WriteLine(getCarsByBrandIdResult.Message);
+            }
+        }
+
+        private static void ListByColorId(CarManager carManager)
+        {
+            var getCarsByColorIdResult = carManager.GetCarsByColorId(1);
+
+            if (getCarsByColorIdResult.Success)
+            {
+                foreach (var car in getCarsByColorIdResult.Data)
+                {
+                    Console.WriteLine(car.ModelYear + " " + " Model" + " " + car.Description + " " + "Fiyatı: " + car.DailyPrice.ToString("N2") + " TL");
+                }
+            }
+            else
+            {
+                Console.WriteLine(getCarsByColorIdResult.Message);
+            }
+        }
+
+        private static void CarDetails(CarManager carManager)
+        {
+            var getCarDetailsResult = carManager.GetCarDetails();
+            if (getCarDetailsResult.Success)
+            {
+                foreach (var car in getCarDetailsResult.Data)
+                {
+                    Console.WriteLine(car.BrandName + car.ModelName + car.ColorName + car.DailyPrice.ToString("N2"));
+                }
+            }
+            else
+            {
+                Console.WriteLine(getCarDetailsResult.Message);
+
+            }
         }
 
         static void InitializeDb()
