@@ -12,9 +12,11 @@ namespace ConsoleUI
         {
             //InitializeDb();
 
-            
+
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
-            rentalManager.Add(new Rental { CarId = 2, CustomerId = 2, RentDate = new DateTime(2021, 02, 21), ReturnDate = new DateTime(2021, 02, 25) });
+            var response = rentalManager.Add(new Rental { CarId = 2, CustomerId = 2, RentDate = new DateTime(2021, 02, 16), ReturnDate = new DateTime(2021, 02, 25) });
+
+            Console.WriteLine(response.Message);
         }
 
         static void InitializeDb()

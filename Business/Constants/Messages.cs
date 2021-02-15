@@ -21,6 +21,7 @@ namespace Business.Constants
         public static string ModelAdded = "Yeni model eklendi";
         public static string ModelUpdated = "Model güncellendi";
         public static string Added = "Ekleme işlemi başarılı";
-        public static string RentDateControl = "Lütfen kiralama tarihlerini kontrol ediniz";
+        public static string ReturnDateCheck = "Aracı geri getirme tarihi alış tarihinden sonra olmaladıdır";
+        public static string CarNotAvaliableAtGivenDate = "Araç müsait değil";
     }
 }

@@ -23,13 +23,20 @@ namespace Business.Concrete
             var rentals = GetByCarId(rental.CarId).Data;
             foreach (var rented in rentals)
             {
-                if (rented.ReturnDate > rental.RentDate || rental.ReturnDate <= rental.RentDate)
+                //Ters tarih girmesi engellenir.
+                if (rental.ReturnDate <= rental.RentDate)
                 {
-                    return new ErrorResult(Messages.RentDateControl);
+                    return new ErrorResult(Messages.ReturnDateCheck);
+                }
+
+                //Bu tarihte araç kiralanmış mı?
+                if ((rental.RentDate >= rented.RentDate && rental.RentDate < rented.ReturnDate) || (rental.ReturnDate > rented.RentDate && rental.ReturnDate <= rented.ReturnDate))
+                {
+                    return new ErrorResult(Messages.CarNotAvaliableAtGivenDate);
                 }
             }
             _rentalDal.Add(rental);
-            return new SuccessResult();
+            return new SuccessResult("Araç Kiralandı");
         }
 
         public IResult Delete(Rental rental)
@@ -53,7 +60,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Rental>> GetByCarId(int carId)
         {
-            if (DateTime.Now.Hour == 22)
+            if (DateTime.Now.Hour == 12)
             {
                 return new ErrorDataResult<List<Rental>>(Messages.MaintenanceTime);
             }
