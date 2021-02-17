@@ -59,8 +59,8 @@ namespace Business.Concrete
         }
 
         public IDataResult<List<Rental>> GetByCarId(int carId)
-        {
-            if (DateTime.Now.Hour == 12)
+        {  
+            if (DateTime.Now.Hour == 22)
             {
                 return new ErrorDataResult<List<Rental>>(Messages.MaintenanceTime);
             }
